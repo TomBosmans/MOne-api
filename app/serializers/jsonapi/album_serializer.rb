@@ -5,4 +5,7 @@ class Jsonapi::AlbumSerializer < Jsonapi::ApplicationSerializer
   has_many :tracks
 
   attribute :name
+  attribute :cover do |album|
+    url_for album.cover
+  end
 end

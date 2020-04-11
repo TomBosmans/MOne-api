@@ -12,6 +12,7 @@ gem 'fast_jsonapi', '~> 1.6.0', git: 'https://github.com/fast-jsonapi/fast_jsona
 
 group :development, :test do
   gem 'pry'
+  gem 'annotate'
   gem 'faker', '~> 2.11.0'
   gem 'factory_bot_rails', '~> 5.1.1'
 end

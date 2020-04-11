@@ -21,13 +21,18 @@ class Sync < ApplicationService
     TagLib::FLAC::File.open(path) do |file|
       tag = file.xiph_comment
       fields = tag.field_list_map
-      create_data(fields)
+      
+      artist = Artist.find_or_create_by(name: fields['ARTIST'].first)
+      album = artist.albums.find_or_create_by(name: fields['ALBUM'].first)
+      picture = file.picture_list.first
+      unless album.cover.attached?
+        album.cover.attach(
+          io: StringIO.new(picture.data),
+          filename: album.id,
+          content_type: picture.mime_type
+        )
+      end
+      track = album.tracks.find_or_create_by(name: fields['TITLE'].first)
     end
-  end
-
-  def create_data(fields)
-    artist = Artist.find_or_create_by(name: fields['ARTIST'].first)
-    album = artist.albums.find_or_create_by(name: fields['ALBUM'].first)
-    track = album.tracks.create(name: fields['TITLE'].first)
   end
 end

@@ -1,0 +1,40 @@
+require:  
+- rubocop-rspec
+- rubocop-rails
+
+AllCops:
+  Exclude:
+    - 'db/schema.rb'
+    - 'vendor/**/*'
+    - 'bin/**/*'
+
+Rails:
+  Enabled: true
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
+
+Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/MixinUsage:
+  Exclude:
+    - 'bin/**/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'lib/tasks/**/*.rake'
+    - 'config/routes.rb'
+    - 'spec/**/*.rb'
+  ExcludedMethods: ['describe', 'shared_examples']
+
+Metrics/LineLength:
+  Max: 120 # aim for 80, but allow some extra length.
+  Exclude:
+    - 'config/routes.rb'
+
+Metrics/MethodLength:
+  ExcludedMethods: ['change']

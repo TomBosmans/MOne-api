@@ -15,6 +15,9 @@ group :development, :test do
   gem 'annotate'
   gem 'faker', '~> 2.11.0'
   gem 'factory_bot_rails', '~> 5.1.1'
+  gem 'rubocop', '~> 0.81.0', require: false
+  gem 'rubocop-rails'
+  gem 'rubocop-rspec'
 end
 
 group :development do

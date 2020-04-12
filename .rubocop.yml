@@ -24,17 +24,14 @@ Style/MixinUsage:
   Exclude:
     - 'bin/**/*'
 
+Metrics/AbcSize:
+  Enabled: false
+
 Metrics/BlockLength:
-  Exclude:
-    - 'lib/tasks/**/*.rake'
-    - 'config/routes.rb'
-    - 'spec/**/*.rb'
-  ExcludedMethods: ['describe', 'shared_examples']
+  Enabled: false
 
 Metrics/LineLength:
-  Max: 120 # aim for 80, but allow some extra length.
-  Exclude:
-    - 'config/routes.rb'
+  Enabled: false
 
 Metrics/MethodLength:
-  ExcludedMethods: ['change']
+  Enabled: false

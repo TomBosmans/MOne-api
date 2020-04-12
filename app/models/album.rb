@@ -4,11 +4,12 @@
 #
 # Table name: albums
 #
-#  id         :uuid             not null, primary key
-#  name       :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  artist_id  :uuid
+#  id           :uuid             not null, primary key
+#  name         :string
+#  release_date :date
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  artist_id    :uuid
 #
 # Indexes
 #

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'taglib'
 
 class Sync < ApplicationService
@@ -14,17 +16,30 @@ class Sync < ApplicationService
   attr_reader :path
 
   def flac_files
-    @files ||= Dir.glob("#{path}/**/*.flac")
+    @flac_files ||= Dir.glob("#{path}/**/*.flac")
   end
 
   def read_flac(path)
     TagLib::FLAC::File.open(path) do |file|
       tag = file.xiph_comment
-      fields = tag.field_list_map
-      
-      artist = Artist.find_or_create_by(name: fields['ARTIST'].first)
-      album = artist.albums.find_or_create_by(name: fields['ALBUM'].first)
+      fields = tag.field_list_map.transform_values(&:first)
       picture = file.picture_list.first
+
+      artist = Artist.find_or_create_by(
+        name: fields['ARTIST']
+      )
+
+      album = artist.albums.find_or_create_by(
+        name: fields['ALBUM'],
+        release_date: fields['DATE'] && Time.zone.local(fields['DATE'])
+      )
+
+      album.tracks.find_or_create_by(
+        name: fields['TITLE'],
+        number: fields['TRACKNUMBER'],
+        source: path
+      )
+
       unless album.cover.attached?
         album.cover.attach(
           io: StringIO.new(picture.data),
@@ -32,7 +47,6 @@ class Sync < ApplicationService
           content_type: picture.mime_type
         )
       end
-      track = album.tracks.find_or_create_by(name: fields['TITLE'].first)
     end
   end
 end

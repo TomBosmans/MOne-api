@@ -6,6 +6,8 @@
 #
 #  id         :uuid             not null, primary key
 #  name       :string
+#  number     :integer
+#  source     :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  album_id   :uuid

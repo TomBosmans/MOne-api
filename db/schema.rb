@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2020_04_11_172715) do
   create_table "albums", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "artist_id"
     t.string "name"
+    t.date "release_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["artist_id"], name: "index_albums_on_artist_id"
@@ -54,6 +55,8 @@ ActiveRecord::Schema.define(version: 2020_04_11_172715) do
   create_table "tracks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "album_id"
     t.string "name"
+    t.integer "number"
+    t.string "source"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["album_id"], name: "index_tracks_on_album_id"

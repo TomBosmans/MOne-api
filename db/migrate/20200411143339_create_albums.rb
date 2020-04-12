@@ -5,6 +5,7 @@ class CreateAlbums < ActiveRecord::Migration[6.0]
     create_table :albums, id: :uuid do |t|
       t.references :artist, type: :uuid, index: true, foreign_key: true
       t.string :name
+      t.date :release_date
 
       t.timestamps
     end
